@@ -16,7 +16,7 @@ O **Gerador de Senhas Complexas** é um script em Python que permite aos usuári
 ## Uso
 Para executar o script, utilize o seguinte comando:
 ```bash
-python gerador_senhas.py
+python gerador_senha.py
 ```
 
 ### Funcionalidades
