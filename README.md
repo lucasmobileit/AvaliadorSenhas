@@ -160,9 +160,6 @@ Sugestões de melhorias:
 - Adicionar suporte para mensagens em outros idiomas.
 - Implementar verificações avançadas (ex.: cálculo de entropia).
 
-## Licença 📄
-
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo LICENSE para detalhes.
 
 ## Agradecimentos 💙
 
