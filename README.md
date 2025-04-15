@@ -24,8 +24,8 @@ Bem-vindo ao **Avaliador de Força de Senha**, uma ferramenta Python robusta e s
 1. **Clone o Repositório**:
 
    ```bash
-   git clone https://github.com/seu-usuario/avaliador-forca-senha.git
-   cd avaliador-forca-senha
+   git clone https://github.com/lucasmobileit/AvaliadorSenhas.git
+   cd AvaliadorSenhas
    ```
 
 2. **Requisitos**:
@@ -143,30 +143,6 @@ optional arguments:
 - **Amigável ao Usuário**: Classificações com emojis e dicas claras tornam a experiência divertida e acessível.
 - **Leveza**: Apenas Python puro, sem dependências extras.
 - **Educativo**: Aprenda sobre boas práticas de senhas enquanto protege suas contas.
-
-## Como Contribuir 👥
-
-Adoraríamos sua ajuda para melhorar este projeto! Veja como contribuir:
-
-1. Faça um fork do repositório.
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-ideia`).
-3. Commit suas alterações (`git commit -m "Adiciona nova ideia"`).
-4. Envie para sua branch (`git push origin feature/nova-ideia`).
-5. Abra um Pull Request.
-
-Sugestões de melhorias:
-
-- Ampliar a lista de palavras comuns.
-- Adicionar suporte para mensagens em outros idiomas.
-- Implementar verificações avançadas (ex.: cálculo de entropia).
-
-
-## Agradecimentos 💙
-
-- Desenvolvido com carinho usando Python.
-- Dedicado a promover senhas mais seguras em um mundo digital.
-
----
 
 🌟 **Dê uma estrela no repositório** se achou útil!\
 Tem dúvidas ou ideias? Abra uma issue ou compartilhe suas sugestões. Vamos construir um futuro digital mais seguro juntos! 🔐
