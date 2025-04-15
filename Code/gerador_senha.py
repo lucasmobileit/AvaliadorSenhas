@@ -1,82 +1,93 @@
-# Gerador de senhas complexas.
 import string
-from random import choice
+import argparse
+import secrets
 
-# Cores
-RED    = '\033[31m'
-GREEN  = '\033[32m'
-YELLOW = '\033[33m'
-WHITE  = '\033[0m'
-BLUE   = '\033[34m'
+class Complexity:
+    def complexity_pass(self, password):            
+            pontos = 0
+            dicas = []
+                                
+            if any(p in string.digits for p in password):
+                pontos += 1
+            else:
+                dicas.append("[!] Inclua ao menos um número nesta senha.")
+            
+            if any(p.islower() for p in password) and any(p.isupper() for p in password):
+                pontos += 1
+            else:
+                dicas.append("[!] Faça combinação de minusculas e maiusculas.")
 
-# Variáveis de apoio
-alfabeto = string.ascii_letters + string.digits + string.punctuation
-senha    = ''
+            if any(p in string.punctuation for p in password):
+                pontos += 1
+            else:
+                dicas.append("[!] Adicione caracteres especiais, como !, @, #, etc.")
 
-# Funções
-def permanecer(resposta):
-        if resposta == 'N':
-            print(f"{GREEN}Obrigado por utilizar o gerador de senhas TechKey! :){WHITE}")
-            return True
-        else:
-            return False
+            # Verificação de palavras comuns
+            comuns = ["senha", "password", "admin", "123456", "qwerty"]
+            if not any(palavra in password.lower() for palavra in comuns):
+                pontos += 1
+            else:
+                dicas.append("Evite palavras óbvias como 'senha' ou '123456'.")
+            
+            if len(password) >= 12:
+                pontos += 1
+            else:
+                dicas.append("[!] Senhas com menos de 12 caracteres não são consideradas tão seguras.")
+                pontos -= 2
+            
+            if pontos == 5:
+                maturidade = "Excelente! 😃"
+            elif pontos >= 3:
+                maturidade = "Boa! 🙂"
+            else:
+                maturidade = "Precisa melhorar! 😟"
+            
+            nivel = "\n".join(dicas)
+            return f"{nivel}\n\n➡ O nível da sua senha é: {maturidade}"
+    
+    
+    def random_pass(self, length):
+        if length < 8:
+            raise ValueError("A senha precisa ter pelo menos 8 caracteres.")
+    
+        # Conjunto de caracteres
+        chars = string.ascii_letters + string.digits + string.punctuation
+    
+        # Garante pelo menos um de cada tipo
+        senha = [
+        secrets.choice(string.ascii_uppercase),
+        secrets.choice(string.ascii_lowercase),
+        secrets.choice(string.digits),
+        secrets.choice(string.punctuation)
+        ]   
+    
+        # Preenche o restante
+        for _ in range(length - 4):
+            senha.append(secrets.choice(chars))
+        
+        secrets.SystemRandom().shuffle(senha)  # Embaralha com segurança
+        return ''.join(senha)
 
-def conferindo_integer(numero):
-    while True:
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Verifica a força de uma senha.")
+    parser.add_argument("--senha", type=str, help="Senha a ser avaliada.")
+    parser.add_argument("--gerar", type=int, help="Gera uma senha segura com o tamanho indicado.")
+
+    args = parser.parse_args()
+    checker = Complexity()
+
+    if args.gerar is not None:
         try:
-            if int(numero) < 8 or int(numero) > 16:
-                print(f"{RED}O número deve estar entre 8 e 16.{WHITE}")
-                return conferindo_integer(input("\nQuantos caracteres você deseja: "))
-            return int(numero)
-        except ValueError:
-            valor = input("\nDigite um número válido...")
-
-def complexidade(senha):
-    tem_pontuacao = any(c in string.punctuation for c in senha)
-    tem_digito = any(c in string.digits for c in senha)
-    tem_letra = any(c in string.ascii_letters for c in senha)
-    return tem_pontuacao and tem_digito and tem_letra
-
-print(f"{GREEN}Seja muito bem-vindo ao gerador de senhas TechKey!{WHITE}")
-
-while True:
-    permanencia = input(f"""
-Você deseja gerar uma nova senha?{GREEN}
-
-[ENTER] para adicionar.{RED}
-[N]     para não.{WHITE}
-
-    """).upper()
-
-    if permanecer(permanencia):
-         break
-
-    parametro = conferindo_integer(input(f"""
-Quantos caracteres você deseja?{GREEN}
-(O mínimo é 8 e o máximo 16)
-{BLUE}
-    [8]  Caracteres.
-    [9]  Caracteres.
-    [10] Caracteres.
-    [11] Caracteres.
-    [12] Caracteres.
-    [13] Caracteres.
-    [14] Caracteres.
-    [15] Caracteres.
-    [16] Caracteres.
-{WHITE}
-    """))
-
-    print(parametro)
-    while True:
-        for i in range(parametro):
-            senha += choice(alfabeto)
-
-        if len(senha) > parametro:
-            senha = ''
-
-        if complexidade(senha):
-            break
-
-    print(f"\n{WHITE}Sua nova senha é: {YELLOW}{senha}{WHITE}.")
-    senha = ''
+            senha_aleatoria = Complexity().random_pass(args.gerar)
+            print(f"[!] Sua senha foi gerada: {senha_aleatoria}")
+            print(checker.complexity_pass(senha_aleatoria))
+        except ValueError as erro:
+            print(f"[X] Erro ao gerar senha: {erro}")
+    elif args.senha:
+        try:
+            print(checker.complexity_pass(args.senha))
+        except ValueError as erro:
+             print(f"[X] Erro ao gerar senha: {erro}")
+    else:
+        print("Use '--senha' para avaliar ou '--gerar' para gerar uma senha.")
