@@ -136,13 +136,3 @@ optional arguments:
 
   - Lida elegantemente com entradas inválidas (ex.: senhas com menos de 8 caracteres).
   - Exibe mensagens de erro claras e úteis.
-
-## Por Que Usar? 🔒
-
-- **Segurança em Primeiro Lugar**: Usa `secrets` para gerar senhas seguras, ideal para aplicações reais.
-- **Amigável ao Usuário**: Classificações com emojis e dicas claras tornam a experiência divertida e acessível.
-- **Leveza**: Apenas Python puro, sem dependências extras.
-- **Educativo**: Aprenda sobre boas práticas de senhas enquanto protege suas contas.
-
-🌟 **Dê uma estrela no repositório** se achou útil!\
-Tem dúvidas ou ideias? Abra uma issue ou compartilhe suas sugestões. Vamos construir um futuro digital mais seguro juntos! 🔐
